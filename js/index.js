@@ -1,11 +1,12 @@
 
 const searchField = document.querySelector('.search-bar input')
 const searchButton = document.querySelector('form')
+const movieResults = document.querySelector('.results')
+let pageNumber = 1
 
 
-
-function omdbSearch(searchText) { //Use the API to perform a general search
-    fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=90353081&s=${searchText}`)
+function omdbSearch(searchText, pageNumber) { //Use the API to perform a general search
+    fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=90353081&s=${searchText}&page=${pageNumber}`)
     .then( response => response.json() )
     .then( data => {
         omdbTitleSearch(data)
@@ -31,7 +32,6 @@ function omdbTitleSearch(searchData) { //Do another search but with titles to ge
     })
 
     function buildResults(data) { //Make HTML but exclude bad results
-        const movieResults = document.querySelector('.results')
         if(data.Response !== 'False') {
             movieResults.innerHTML += `
             <section class="movie">
@@ -60,8 +60,8 @@ function omdbTitleSearch(searchData) { //Do another search but with titles to ge
 searchButton.addEventListener('submit', (e) => { //Listen for search queries
     e.preventDefault()
     movieSearchTitles = []
-    movieSearchDetails = []
     omdbSearch(searchField.value)
     searchField.value = null
+    movieResults.innerHTML = ''
 })
 
