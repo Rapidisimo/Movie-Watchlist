@@ -127,7 +127,7 @@ header h3 {
     height: 100%;
 }
 
-.movie h1 {
+.movie h2 {
     font-size: 1rem;
     font-weight: 600;
 }
@@ -139,6 +139,16 @@ header h3 {
 .plot p {
     font-size: .8rem;
     line-height: 1.4;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.4rem;
+}
+
+#more-results {
+    padding: .6rem 1rem .6rem;
 }
 
 button {

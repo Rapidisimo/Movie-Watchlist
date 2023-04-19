@@ -11,9 +11,14 @@ function omdbSearch(searchText, pageNumber) { //Step 2 - Use the API to perform 
     fetch(`https://www.omdbapi.com/?apikey=90353081&s=${searchText}&page=${pageNumber}`)
     .then( response => response.json() )
     .then( data => {
-        omdbTitleSearch(data) //With the resulting data call function to search with titles
-        console.log(data)
-        console.log(`Search Results for Page: ${pageNumber}`)
+        if(data.Search) {
+            omdbTitleSearch(data) //With the resulting data call function to search with titles
+            console.log(data)
+            console.log(`Search Results for Page: ${pageNumber}`)    
+        }else {
+            moreResults.innerText = 'No Results Left'
+            moreResults.disabled = true    
+        }
     })
     .catch(error => console.log(error))
 }
@@ -40,25 +45,23 @@ function omdbTitleSearch(searchData) { //Step 3 - Do another search but with tit
     function buildResults(data) { // Step 5 - Make HTML from search with titles but exclude bad results
         if(data.Response !== 'False') {
             movieResults.innerHTML += `
-            <section class="movie">
-                <div class="poster">
-                    <img src="${data.Poster}" alt="movie-poster">
-                </div>
-                <div class="movie-info">
-                    <h1>${data.Title}</h1>
-                    <div class="movie-details">
-                    <p>${data.Runtime}</p>
-                    <p>${data.Genre}</p>
-                    <button>+ Watchlist</button>
+                <section class="movie">
+                    <div class="poster">
+                        <img src="${data.Poster}" alt="movie-poster">
                     </div>
-                    <div class="plot">
-                        <p>
-                        ${data.Plot}
-                        </p>
-                    </div>    
-                </div>
-            </section>
-        `
+                    <div class="movie-info">
+                        <h2>${data.Title}</h2>
+                        <div class="movie-details">
+                            <p>${data.Runtime}</p>
+                            <p>${data.Genre}</p>
+                            <button>+ Watchlist</button>
+                        </div>
+                        <div class="plot">
+                            <p>${data.Plot}</p>
+                        </div>    
+                    </div>
+                </section>
+            `
         }
         if(moreResults.classList.contains('hidden')) { //enable More Results Btn when search is performed
             moreResults.classList.toggle('hidden')
@@ -66,16 +69,19 @@ function omdbTitleSearch(searchData) { //Step 3 - Do another search but with tit
     }
 }
 
-    moreResults.addEventListener('click', () => {//Provide more results through button
+/*** Event Listeners ***/
+
+//Step - Optional (More Results)
+moreResults.addEventListener('click', () => {//Provide more results through button
         pageNumber++
-        console.log(`The Page Number should increase: ${pageNumber}`)
         omdbSearch(currentSearch, pageNumber)
-        console.log(pageNumber)
-    })    
+})
 
 //Step 1 - Search Submission
 searchButton.addEventListener('submit', (e) => {
     e.preventDefault()
+    moreResults.innerText = 'More Results' //Reset More Results Btn
+    moreResults.disabled = false //Re-enable button if pervious search reached the end
     pageNumber = 1 //Page needs to be 1 for new searches
     movieSearchTitles = [] //Erase previous search queries titles
     currentSearch = searchField.value //Saved search text to use with "More Results Btn"
