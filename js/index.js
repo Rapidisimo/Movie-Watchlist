@@ -2,28 +2,33 @@
 const searchField = document.querySelector('.search-bar input')
 const searchButton = document.querySelector('form')
 const movieResults = document.querySelector('.results')
+const moreResults = document.getElementById('more-results')
+let currentSearch = ''
 let pageNumber = 1
 
 
-function omdbSearch(searchText, pageNumber) { //Use the API to perform a general search
-    fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=90353081&s=${searchText}&page=${pageNumber}`)
+function omdbSearch(searchText, pageNumber) { //Step 2 - Use the API to perform a general search
+    fetch(`https://www.omdbapi.com/?apikey=90353081&s=${searchText}&page=${pageNumber}`)
     .then( response => response.json() )
     .then( data => {
-        omdbTitleSearch(data)
+        omdbTitleSearch(data) //With the resulting data call function to search with titles
+        console.log(data)
+        console.log(`Search Results for Page: ${pageNumber}`)
     })
+    .catch(error => console.log(error))
 }
 
-function omdbTitleSearch(searchData) { //Do another search but with titles to get more data
+function omdbTitleSearch(searchData) { //Step 3 - Do another search but with titles to get more data properties
     let searchResults
     let movieSearchTitles = []
-    searchResults = searchData.Search
-    searchResults.forEach( function(movies) { //Make an array with movie titles
+    searchResults = searchData.Search //To access Array of search results
+    searchResults.forEach( function(movies) { //Make an array with movie titles from the first search
         movieSearchTitles.push(movies.Title)
     })
     
     let groupOfMovies = []
-    movieSearchTitles.forEach( movieData => { //Search using the array of movie titles
-        fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=90353081&t=${movieData}`)
+    movieSearchTitles.forEach( movieData => { //Step 4 - Search using the array of movie titles
+        fetch(`https://www.omdbapi.com/?apikey=90353081&t=${movieData}`)
         .then( response => response.json() )
         .then( data => {
             groupOfMovies.push(data) //Creat an array of the results
@@ -31,7 +36,8 @@ function omdbTitleSearch(searchData) { //Do another search but with titles to ge
         })
     })
 
-    function buildResults(data) { //Make HTML but exclude bad results
+
+    function buildResults(data) { // Step 5 - Make HTML from search with titles but exclude bad results
         if(data.Response !== 'False') {
             movieResults.innerHTML += `
             <section class="movie">
@@ -54,14 +60,27 @@ function omdbTitleSearch(searchData) { //Do another search but with titles to ge
             </section>
         `
         }
+        if(moreResults.classList.contains('hidden')) { //enable More Results Btn when search is performed
+            moreResults.classList.toggle('hidden')
+        }
     }
 }
 
-searchButton.addEventListener('submit', (e) => { //Listen for search queries
+    moreResults.addEventListener('click', () => {//Provide more results through button
+        pageNumber++
+        console.log(`The Page Number should increase: ${pageNumber}`)
+        omdbSearch(currentSearch, pageNumber)
+        console.log(pageNumber)
+    })    
+
+//Step 1 - Search Submission
+searchButton.addEventListener('submit', (e) => {
     e.preventDefault()
-    movieSearchTitles = []
-    omdbSearch(searchField.value)
-    searchField.value = null
-    movieResults.innerHTML = ''
+    pageNumber = 1 //Page needs to be 1 for new searches
+    movieSearchTitles = [] //Erase previous search queries titles
+    currentSearch = searchField.value //Saved search text to use with "More Results Btn"
+    omdbSearch(searchField.value, pageNumber) //Perform a search using the API 
+    searchField.value = null //Clear search field
+    movieResults.innerHTML = '' //Clear HTML from Previous Results
 })
 
