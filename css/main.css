@@ -86,6 +86,11 @@ header h3 {
     margin: 0 -.4rem;
 }
 
+.movie-not-found {
+    margin-top: 2rem;
+    text-align: center;
+}
+
 .movie {
     margin-top: 2rem;
     display: grid;

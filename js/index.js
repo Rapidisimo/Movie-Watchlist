@@ -16,8 +16,18 @@ function omdbSearch(searchText, pageNumber) { //Step 2 - Use the API to perform 
             console.log(data)
             console.log(`Search Results for Page: ${pageNumber}`)    
         }else {
-            moreResults.innerText = 'No Results Left'
-            moreResults.disabled = true    
+            if(moreResults.classList.contains('hidden')) {
+                console.log('Is this coming up?')
+                movieResults.innerHTML = `
+                    <section class="movie-not-found">
+                        <h2>Unable to find ${currentSearch}</h2>
+                        <p>Please check for any typos.</p>
+                    </section>
+                `    
+            } else {
+                moreResults.innerText = 'No Results Left'
+                moreResults.disabled = true    
+            }
         }
     })
     .catch(error => console.log(error))
@@ -80,7 +90,10 @@ moreResults.addEventListener('click', () => {//Provide more results through butt
 //Step 1 - Search Submission
 searchButton.addEventListener('submit', (e) => {
     e.preventDefault()
-    moreResults.innerText = 'More Results' //Reset More Results Btn
+    if(!moreResults.classList.contains("hidden")) {//hide the More Results Btn when starting new searches
+        moreResults.classList.add("hidden")
+    }
+    moreResults.innerText = 'More Results' //Reset text for More Results Btn
     moreResults.disabled = false //Re-enable button if pervious search reached the end
     pageNumber = 1 //Page needs to be 1 for new searches
     movieSearchTitles = [] //Erase previous search queries titles
