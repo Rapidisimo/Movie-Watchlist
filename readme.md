@@ -1,6 +1,6 @@
 # Scrimba Solo Project - Movie Watch List
 
-## Live Version >> ➡️ [N/A](https://#)
+## Live Version >> ➡️ [View Here](https://rapidisimo.github.io/Movie-Watchlist/)
 
 ## Requirements
 1. Create two pages. index.html and watchlist.hml
@@ -16,6 +16,9 @@
 
 ## Preview
 ![App-Preview-1](images/app-preview-1.pngpreview.jpg)
+
 ![App-Preview-2](images/app-preview-2.pngpreview.jpg)
+
 ![App-Preview-3](images/app-preview-3.pngpreview.jpg)
+
 ![App-Preview-4](images/app-preview-4.pngpreview.jpg)
