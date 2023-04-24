@@ -15,6 +15,9 @@
 
 
 ## Preview
+
+<img  src="images/app-preview-1.png" width="50%" height="50%" alt="screenshot of search section">
+
 ![App-Preview-1](images/app-preview-1.png)
 
 ![App-Preview-2](images/app-preview-2.png)
