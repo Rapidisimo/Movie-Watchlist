@@ -1,4 +1,4 @@
-# Scrimba Solo Project - Movie Watch List
+# Scrimba Solo Project - Movie Watchlist
 
 ## Live Version >> ➡️ [View Here](https://rapidisimo.github.io/Movie-Watchlist/)
 
