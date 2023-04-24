@@ -17,4 +17,5 @@
 ## Preview
 
 <img  src="images/app-preview-1.png" width="25%" height="25%" alt="screenshot of search section"> <img  src="images/app-preview-2.png" width="25%" height="25%" alt="screenshot of search results"> 
+
 <img  src="images/app-preview-3.png" width="25%" height="25%" alt="screenshot of watchlist page"> <img  src="images/app-preview-4.png" width="25%" height="25%" alt="screenshot of saved watchlist page">
