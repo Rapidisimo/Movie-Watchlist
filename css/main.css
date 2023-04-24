@@ -143,14 +143,36 @@ header h3 {
 }
 
 .watch-list-btn {
-    background-image: url(../images/add-light-mode.svg);
+    padding-left: 1.2rem;
+}
+
+.watch-list-btn:hover {
+    color: hsl(123, 48%, 36%);
+}
+
+.add-btn-light,
+.add-btn-dark,
+.remove-btn-light,
+.remove-btn-dark {
     background-repeat: no-repeat;
     background-position: left;
     background-size: contain;
-    padding-left: 1.2rem;
 }
-.watch-list-btn:hover {
-    color: hsl(123, 48%, 36%);
+
+.add-btn-light {
+    background-image: url(../images/add-light-mode.svg);
+}
+
+.add-btn-dark {
+    background-image: url(../images/add-dark-mode.svg);
+}
+
+.remove-btn-light {
+    background-image: url(../images/remove-light-mode.svg);
+}
+
+.remove-btn-dark {
+    background-image: url(../images/remove-dark-mode.svg);
 }
 
 .plot {
@@ -199,4 +221,37 @@ a:hover,
 
 .hidden {
     display: none;
+}
+
+.unshow {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 250ms ease-in, visibility 0ms ease-in 250ms;
+}
+
+.show {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 10ms;
+}
+
+.rfwl {
+    display: flex;
+    margin-top: 2rem;
+    min-height: 420px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.rfwl a {
+    text-decoration: underline dashed;
+}
+
+.rfwl a:hover {
+    color: green;
+}
+
+.watchlist-empty p {
+    margin-top: 1.8rem;
 }
