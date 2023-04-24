@@ -15,10 +15,10 @@
 
 
 ## Preview
-![App-Preview-1](images/app-preview-1.pngpreview.jpg)
+![App-Preview-1](images/app-preview-1.png)
 
-![App-Preview-2](images/app-preview-2.pngpreview.jpg)
+![App-Preview-2](images/app-preview-2.png)
 
-![App-Preview-3](images/app-preview-3.pngpreview.jpg)
+![App-Preview-3](images/app-preview-3.png)
 
-![App-Preview-4](images/app-preview-4.pngpreview.jpg)
+![App-Preview-4](images/app-preview-4.png)
