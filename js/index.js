@@ -69,7 +69,7 @@ function omdbTitleSearch(searchData) { //Step 4 - Do another search but with tit
                         <img src="${Poster}" alt="movie-poster">
                     </div>
                     <div class="movie-info">
-                        <h2>${Title} <span class="rating-score">⭐️${imdbRating}</span></h2>
+                        <h2>${Title} <span class="rating-score">⭐️ ${imdbRating}</span></h2>
                         <div class="movie-details">
                             <p>${Runtime}</p>
                             <p>${Genre}</p>
