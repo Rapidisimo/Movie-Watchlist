@@ -7,7 +7,7 @@ let currentSearch = ''
 let pageNumber = 1
 
 //Step 1 /* Setup local storage to save movies if there isn't a key pair setup yet */
-if(localStorage.Watchlist === '[]' || localStorage.length === 0) {
+if(!localStorage.getItem('Watchlist')) {
     localStorage.setItem('Watchlist', JSON.stringify([])) //Create a key and an empty array
 }
 
@@ -18,11 +18,8 @@ function omdbSearch(searchText, pageNumber) { //Step 3 - Use the API to perform 
     .then( data => {
         if(data.Search) {
             omdbTitleSearch(data) //With the resulting data call function to search with titles
-            console.log(data)
-            console.log(`Search Results for Page: ${pageNumber}`)    
         }else {
             if(moreResults.classList.contains('hidden')) {
-                console.log('Is this coming up?')
                 movieResults.innerHTML = `
                     <section class="movie-not-found">
                         <h2>Unable to find ${currentSearch}</h2>
@@ -58,7 +55,6 @@ function omdbTitleSearch(searchData) { //Step 4 - Do another search but with tit
 
 
     function buildResults(data) { // Step 6 - Make HTML from search with titles but exclude bad results
-        console.log(data)
         Object.assign(this, data)
         const {Ratings, Poster, Title, Runtime, Genre, Plot} = this;
         const imdbRating = Ratings.length > 0 ? Ratings[0].Value.slice(0,3) : 'N/A'; //Filter out errors when there's no ratings

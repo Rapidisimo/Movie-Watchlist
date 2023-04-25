@@ -2,8 +2,8 @@
 const movieResults = document.querySelector('.results')
 
 /* Setup page depending if there are items on the watchlist */
-if(localStorage.Watchlist === '[]' || localStorage === null) {
-    console.log('No Movies in list')
+if(!localStorage.getItem('Watchlist')) {
+    localStorage.setItem('Watchlist', JSON.stringify([])) //Create a key and an empty array
     document.querySelector('.watchlist-empty').classList.toggle('hidden')
     document.querySelector('main').classList.add('rfwl')
 }else {
@@ -25,7 +25,6 @@ function omdbTitleSearch(searchData) { // Search with titles
     })
 
     function buildResults(data) { // Make HTML from search with titles but exclude bad results
-        console.log(data)
         Object.assign(this, data)
         const {Ratings, Poster, Title, Runtime, Genre, Plot} = this;
         const imdbRating = Ratings.length > 0 ? Ratings[0].Value.slice(0,3) : 'N/A'; //Filter out errors when there's no ratings
