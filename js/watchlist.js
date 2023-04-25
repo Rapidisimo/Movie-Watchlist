@@ -3,10 +3,18 @@ const movieResults = document.querySelector('.results')
 
 /* Setup page depending if there are items on the watchlist */
 if(!localStorage.getItem('Watchlist')) {
+    console.log('nothing is here, making an empty array')
     localStorage.setItem('Watchlist', JSON.stringify([])) //Create a key and an empty array
     document.querySelector('.watchlist-empty').classList.toggle('hidden')
     document.querySelector('main').classList.add('rfwl')
-}else {
+}else if (localStorage.Watchlist === '[]') {
+    console.log('The empty watchlist is here already')
+    document.querySelector('.watchlist-empty').classList.toggle('hidden')
+    document.querySelector('main').classList.add('rfwl')
+
+}
+else {
+    console.log('Saved stuff is here already, performing search.')
     document.querySelector('main').classList.toggle('rfwl')
     let currentStorage = localStorage.getItem('Watchlist'); // Save what's currently in localstorage to a variable
     let storedMovies = JSON.parse(currentStorage); // Parse previous variable
@@ -76,8 +84,8 @@ function omdbTitleSearch(searchData) { // Search with titles
             }
 
             wlBtn.addEventListener('click', (e) => { //Listen to all Watchlist buttons
-                let addMovie = e.target.dataset.title; //Assign movie title related to button
-                let papa = (((e.target.parentElement).parentElement).parentElement);
+                const addMovie = e.target.dataset.title; //Assign movie title related to button
+                const papa = (((e.target.parentElement).parentElement).parentElement);
                 if(!localStorage.getItem('Watchlist')) { //If the key isn't in localStorage
                     localStorage.setItem('Watchlist', JSON.stringify([addMovie])) //Make it and add the movie clicked
                     e.target.classList.remove('add-btn-light');
@@ -89,9 +97,14 @@ function omdbTitleSearch(searchData) { // Search with titles
                     if(verifyMovie > -1) { // If the movie is already in localStorage then remove it
                       storedMovies.splice(verifyMovie, 1)
                       localStorage.setItem('Watchlist', JSON.stringify(storedMovies))
-                      e.target.classList.remove('remove-btn-light');
-                      e.target.classList.add('add-btn-light');
-                      papa.classList.add('unshow');
+                      console.log( (((e.target.parentElement).parentElement).parentElement) )
+                      const moviesRemaining = document.querySelectorAll('.movie');
+                      console.log(moviesRemaining.length)
+                      if(moviesRemaining.length <= 1) {
+                        console.log('Nothing remains')
+                        localStorage.removeItem('Watchlist')
+                        document.querySelector('.watchlist-empty').classList.toggle('hidden')
+                      }
                       papa.remove()
                     } else { // If not then add it to localStorage
                         storedMovies.push(addMovie)
