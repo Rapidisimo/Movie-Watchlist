@@ -1,4 +1,3 @@
-
 const searchField = document.querySelector('.search-bar input')
 const searchButton = document.querySelector('form')
 const movieResults = document.querySelector('.results')
